@@ -9,11 +9,11 @@ body {
   color: #ff9c25;
   font-family: 'VT323', monospace;
   padding: 10px;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 1;
   position: relative;
   overflow: auto;
-  box-sizing: border-box;  /* Ensures padding doesn't affect total size */
+  box-sizing: border-box;
 }
 
 /* Global lined appearance for retro CRT effect */
@@ -36,52 +36,109 @@ body::before {
 }
 
 .window {
-  background-color: rgba(51, 25, 0, 0.8);  /* Semi-transparent for scan lines */
+  background-color: rgba(51, 25, 0, 0.8);
   color: #ff9c25;
   border: 2px solid #ff9c25;
   margin: 20px auto;
   position: relative;
-  box-sizing: border-box;  /* Manages padding without changing total size */
+  box-sizing: border-box;
 }
 
 .window-top-bar {
-  background-color: #ff9c25;  /* Inverted background */
-  color: #331900;  /* Inverted foreground */
-  padding: 2px;  /* Reduced height: Original was 5px, now smaller for compactness */
+  background-color: #ff9c25;
+  color: #331900;
+  padding: 1px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;  /* Prevents padding from increasing total height */
-  font-size: 1.5em;
+  box-sizing: border-box;
 }
 
 .window-top-bar .fake-close {
-  font-size: 1.2em; 
+  font-size: 1.2em;
   cursor: default;
   padding: 0 5px;
 }
 
 .window-content {
-  padding: 10px;  /* Optional padding for content inside the window */
+  padding: 10px;
 }
 
 .link-button {
-  display: inline-block;  /* Makes it behave like a button */
-  background-color: #ff9c25;  /* Inverted background like top bar */
-  color: #331900;  /* Inverted text color */
-  text-decoration: none;  /* Removes underline from link */
-  padding: 5px 10px;  /* Small overall size: Compact padding */
-  font-size: 1.5em;  /* Big text: Makes the text larger for emphasis */
-  border: 2px solid #ff9c25;  /* Retro border for button feel */
-  box-sizing: border-box;  /* Ensures padding doesn't increase total size */
-  margin: 10px;  /* Spacing around the button */
-  cursor: pointer;  /* Pointer for interactivity */
-  transition: background-color 0.3s;  /* Optional hover effect for retro flair */
+  display: inline-block;
+  background-color: #ff9c25;
+  color: #331900;
+  text-decoration: none;
+  padding: 5px 10px;
+  font-size: 1.5em;
+  border: 2px solid #ff9c25;
+  box-sizing: border-box;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .link-button:hover {
-  background-color: #331900;  /* Optional: Swap colors on hover for more interaction */
+  background-color: #331900;
   color: #ff9c25;
+}
+
+/* Updated class for note boxes with soft blue color */
+.note {
+  background-color: #6488EA;  /* Soft blue background */
+  color: #331900;  /* Dark text for contrast */
+  border: 1px solid #6488EA;
+  padding: 1px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  font-size: 1em;
+  border-radius: 0;
+  .note h3 {
+    margin:0 !important;
+    padding:0 !important;
+  }
+}
+
+/* Updated class for warning boxes with reddish color */
+.warning {
+  background-color: #D0342C;  /* Reddish background for warnings */
+  color: #331900;  /* Dark text for contrast */
+  border: 2px solid #D0342C;
+  padding: 1px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  font-size: 1em;
+  border-radius: 0;
+  font-weight: bold;
+}
+
+/* New class for outlined list entries div */
+.list-entries {
+  background-color: rgba(51, 25, 0, 0.5);  /* Retro-themed semi-transparent background */
+  border: 2px solid #ff9c25;  /* Outlined border for retro effect */
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  line-height: 1.1;  /* Single-line height, as per CSS best practices */
+  font-size: 1em;
+  border-radius: 0;  /* Sharp edges for retro styling */
+}
+
+.list-entries ul, .list-entries ol {
+  margin: 0;
+  padding-left: 20px;  /* Indent for list items */
+  list-style-type: disc;  /* Default list style; can be customized */
+}
+
+.list-entries li {
+  margin-bottom: 0;  /* Removes extra spacing for single-line height */
+  border: 2px solid #ff9c25;  /* Outlined border for retro effect */
+}
+.list-entries div{
+    margin-bottom: 0;  /* Removes extra spacing for single-line height */
+    padding: 5px;  /* Padding for better readability */
+    font-size: 1em;  /* Consistent font size */
+    border: 2px solid #ff9c25;  /* Outlined border for retro effect */
 }
 
 .typed-cursor {
