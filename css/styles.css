@@ -1,0 +1,28 @@
+.retro-terminal {
+  background-color: black;
+  color: #FFBF00; /* Green text like old terminals */
+  font-family: 'Courier New', monospace; /* Monospace font for a retro feel */
+  padding: 20px;
+  border: 5px solid #FFBF00;
+  box-shadow: 0 0 10px #FFBF00; /* Glow effect */
+  overflow: auto; /* Allows scrolling for long content */
+  position: relative; /* For adding scan lines */
+}
+
+/* Add scan lines for CRT effect */
+.retro-terminal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    transparent 0%,
+    transparent 2px,
+    rgba(255, 255, 255, 0.1) 2px,
+    rgba(255, 255, 255, 0.1) 4px
+  );
+  pointer-events: none; /* So it doesn't interfere with interactions */
+  opacity: 0.5;
+}
