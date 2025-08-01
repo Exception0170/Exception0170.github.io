@@ -1,28 +1,101 @@
-.retro-terminal {
-  background-color: black;
-  color: #FFBF00; /* Green text like old terminals */
-  font-family: 'Courier New', monospace; /* Monospace font for a retro feel */
-  padding: 20px;
-  border: 5px solid #FFBF00;
-  box-shadow: 0 0 10px #FFBF00; /* Glow effect */
-  overflow: auto; /* Allows scrolling for long content */
-  position: relative; /* For adding scan lines */
+html, body {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
-/* Add scan lines for CRT effect */
-.retro-terminal::before {
+body {
+  background-color: #331900;
+  color: #ff9c25;
+  font-family: 'VT323', monospace;
+  padding: 10px;
+  font-size: 20px;
+  line-height: 1;
+  position: relative;
+  overflow: auto;
+  box-sizing: border-box;  /* Ensures padding doesn't affect total size */
+}
+
+/* Global lined appearance for retro CRT effect */
+body::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background: repeating-linear-gradient(
     transparent 0%,
     transparent 2px,
-    rgba(255, 255, 255, 0.1) 2px,
-    rgba(255, 255, 255, 0.1) 4px
+    rgba(255, 156, 37, 0.1) 2px,
+    rgba(255, 156, 37, 0.1) 4px
   );
-  pointer-events: none; /* So it doesn't interfere with interactions */
+  pointer-events: none;
   opacity: 0.5;
+  z-index: -1;
+}
+
+.window {
+  background-color: rgba(51, 25, 0, 0.8);  /* Semi-transparent for scan lines */
+  color: #ff9c25;
+  border: 2px solid #ff9c25;
+  margin: 20px auto;
+  position: relative;
+  box-sizing: border-box;  /* Manages padding without changing total size */
+}
+
+.window-top-bar {
+  background-color: #ff9c25;  /* Inverted background */
+  color: #331900;  /* Inverted foreground */
+  padding: 2px;  /* Reduced height: Original was 5px, now smaller for compactness */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;  /* Prevents padding from increasing total height */
+  font-size: 1.5em;
+}
+
+.window-top-bar .fake-close {
+  font-size: 1.2em; 
+  cursor: default;
+  padding: 0 5px;
+}
+
+.window-content {
+  padding: 10px;  /* Optional padding for content inside the window */
+}
+
+.link-button {
+  display: inline-block;  /* Makes it behave like a button */
+  background-color: #ff9c25;  /* Inverted background like top bar */
+  color: #331900;  /* Inverted text color */
+  text-decoration: none;  /* Removes underline from link */
+  padding: 5px 10px;  /* Small overall size: Compact padding */
+  font-size: 1.5em;  /* Big text: Makes the text larger for emphasis */
+  border: 2px solid #ff9c25;  /* Retro border for button feel */
+  box-sizing: border-box;  /* Ensures padding doesn't increase total size */
+  margin: 10px;  /* Spacing around the button */
+  cursor: pointer;  /* Pointer for interactivity */
+  transition: background-color 0.3s;  /* Optional hover effect for retro flair */
+}
+
+.link-button:hover {
+  background-color: #331900;  /* Optional: Swap colors on hover for more interaction */
+  color: #ff9c25;
+}
+
+.typed-cursor {
+  opacity: 1;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+h1, h2, p {
+  font-family: 'VT323', monospace;
+  margin-bottom: 1em;
 }

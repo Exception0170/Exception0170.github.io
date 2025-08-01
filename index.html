@@ -1,19 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Main</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        var typed = new Typed('#typewriter', {
+          strings: ["Hello world!"],
+          typeSpeed: 50,
+          backSpeed: 50,
+          loop: false,
+          showCursor: true,
+          cursorChar: '|',
+        });
+      });
+    </script>
   </head>
   <body>
-    <div class="retro-terminal">
-      <pre>
-        Welcome to my portfolio!
-        Projects:
-        - Project 1: Description here
-        - Project 2: Link to GitHub repo
-      </pre>
+    <h1 style="font-size: 40px;">website://home</h1>
+    <div class="window" style="width: 80%; height: 400px;">
+      <div class="window-top-bar">
+        Main.exe
+        <span class="fake-close">X</span>
+      </div>
+      <div class="window-content">
+        <p>
+          Welcome to my website!s<br>
+          Testing. Still under construction.<br>
+          <span id="typewriter"></span>
+        </p>
+        <a href="/about.html" class="link-button">> About</a>
+      </div>
     </div>
-    <img src="images/pfp.jpeg" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;">
   </body>
 </html>
