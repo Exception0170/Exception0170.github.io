@@ -9,6 +9,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <div class="special-background">
+function Text:render(noNextLine)
+  if self.maxLength>=0 then
+    if unicode.wlen(self.text)>self.maxLength then
+      if self.maxLength>4 then
+        self.text=unicode.sub(self.text,1,self.maxLength-3).."..."
+      else
+        self.text=unicode.sub(self.text,1,self.maxLength)
+      end
+    end
+  end
+  if self.hidden then return false end
+  local prev=tgl.changeToColor2(self.col2)
+  if not self.pos2 then
+    term.write(self.text)
+    tgl.changeToColor2(prev,true)
+    if not noNextLine then term.write("\n") end
+    return true
+  end
+  gpu.set(self.pos2.x,self.pos2.y,self.text)
+  tgl.changeToColor2(prev,true)
+  return true
+end
+function Text:updateText(text)
+  self.text=tgl.util.strgen(" ",unicode.wlen(self.text))
+  self:render()
+  self.text=tostring(text)
+  self:render()
+end
+
+MultiText={}
+MultiText.__index=MultiText
+function MultiText:new(objects,pos2)
+  if type(objects)=="table" then
+    local obj=setmetatable({},MultiText)
+    obj.type="MultiText"
+    obj.objects={}
+    for k,object in pairs(objects) do
+      if type(object)=="table" then
+        if object.type=="Text" then
+          if not tonumber(k) then obj.objects[k]=object
+          else table.insert(obj.objects,object) end
+        end
+      end
+    end
+    obj.pos2=pos2 or Pos2:new()
+    return obj
+  end
+end
+function MultiText:render()
+  local startX=self.pos2.x
+  for _,object in pairs(self.objects) do
+    if object.pos2 then object:render()
+    else
+      object.pos2=Pos2:new(startX,self.pos2.y)
+      startX=startX+unicode.wlen(object.text)
+      object:render()
+    end
+  end
+end
+Button={}
+Button.__index=Button
+function Button:new(text,callback,pos2,color2)
+  local obj=setmetatable({},Button)
+  obj.type="Button"
+  obj.text=text or "[New Button]"
+  if type(callback)~="function" then
+  	callback=function() tgl.util.log("Empty Button!","Button/callback") end
+  end
+  obj.callback=callback
+  obj.pos2=pos2 or Pos2:new()
+  obj.col2=color2 or Color2:new()
+  obj.checkRendered=true -- check if button is on screen
+  obj.handler=function (_,_,x,y)
+    if x>=obj.pos2.x
+    and x < obj.pos2.x+unicode.wlen(obj.text)
+    and y==obj.pos2.y
+    and tgl.util.pointInSize2(x,y,tgl.sys.activeArea) then
+      if obj.checkRendered then
+        if tgl.util.getLineMatched(obj.pos2,obj.text,obj.col2)/unicode.wlen(obj.text)< 0.6 then
+          return
+        end
+      end
+      if type(obj.onClick)=="function" then
+        thread.create(obj.onClick):detach()
+      end
+      local success,err=pcall(obj.callback)
+      if not success then
+        tgl.util.log("Button handler error: "..err,"Button/handler")
+      end
+    end
+  end
+  obj.onClick=function()
+    obj:disable()
+    local invert=Color2:new(obj.col2[2],obj.col2[1])
+    local prev=obj.col2
+    obj.col2=invert
+    obj:render()
+    obj.col2=prev
+    os.sleep(.1)
+    obj:render()
+    obj:enable()
+  end
+  return obj
+end
+function Button:enable()
+  event.listen("touch",self.handler)
+end
+function Button:disable()
+  event.ignore("touch",self.handler)
+end
+    </div>
     <h1 style="font-size: 40px;">website://projects/TGL</h1>
     <h2>contents://About</h2>
     TGL stands for "TUI (Text user Interface) Graphics Library".<br>

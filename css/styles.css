@@ -151,6 +151,24 @@ body::before {
   animation: blink 1s infinite;
 }
 
+.special-background {
+  position: absolute;  /* Positions it relative to the nearest positioned ancestor or body */
+  top: 0;
+  left: 0;
+  width: 100%;  /* Full width to cover the page */
+  height: 100%;  /* Full viewport height */
+  background-color: #331900;  /* Dimmer amber color */
+  color: #4e300b;  /* Text color for visibility */
+  font-family: 'VT323', monospace;  /* Matches your theme */
+  font-size: 0.8em;
+  white-space: pre;  /* Preserves all spaces and line breaks for code-like text */
+  overflow: auto;  /* Allows scrolling if content is long */
+  z-index: -2;  /* Places it behind other elements, including global lines and windows */
+  opacity: 0.5;  /* Makes it semi-transparent so it doesn't overwhelm; adjust as needed */
+  padding: 0px;  /* Adds some space for the text inside */
+  box-sizing: border-box;
+}
+
 @keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0; }

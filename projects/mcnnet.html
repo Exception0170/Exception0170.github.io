@@ -9,6 +9,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
   <body>
+    <div class="special-background">
+--init-----------------------------------
+function mnp.logVersions()
+	mnp.log("MNP","MNP version " .. mnp_ver)
+	mnp.log("MNP","MNCP version " .. mncp_ver)
+	mnp.log("MNP","NP version " .. netpacket.ver())
+	mnp.log("MNP","IP version " .. ip.ver())
+end
+--MNCP-----------------------------------
+function mnp.mncp.checkService() --rewrite with timer
+	--rewrite
+end
+function mnp.mncp.nodePing(from)
+	modem.send(from, ports["mncp_ping"], "mncp_ping", ser.serialize(netpacket.newPacket()))
+end
+--MNP------------------------------------
+--Util-
+function timer(time, name)
+	os.sleep(time)
+	computer.pushSignal("timeout", name)
+end
+function mnp.setNetworkName(newname)
+	if tostring(newname) then
+		mnp.networkName = tostring(newname)
+	end
+end
+function mnp.checkHostname(name) --imported from dns.lua
+  if not name then return false end
+	if type(name)~="string" then return false end
+  local pattern = "^%w+%.%w+$"
+  return string.match(name, pattern) ~= nil
+end
+function mnp.toggleLogs(tLog,tTTL)
+	if type(tLog)=="boolean" then dolog =tLog end
+	if type(tTTL)=="boolean" then ttllog=tTTL end
+end
+function mnp.toggleDynamicIPv2(toggle)
+	if type(toggle)=="boolean" then enableDynamic=toggle end
+end
+function mnp.openPorts(plog)
+	for name, port in pairs(ports) do
+		if plog then
+			mnp.log("MNP","Opening " .. name)
+		end
+		if not modem.open(port) and not modem.isOpen(port) then
+			return false
+		end
+	end
+	return true
+end
+function mnp.getPort(keyword)
+	return ports[keyword]
+end
+function mnp.checkTunnel(checkConnect)
+	if component.isAvailable("tunnel") then
+		mnp.log("MNP","Found tunnel!")
+		if checkConnect then
+			mnp.log("MNP","Checking tunnel...")
+			component.tunnel.send("netconnect",ser.serialize(netpacket.newPacket()),ser.serialize({mnp.networkName,{},component.tunnel.getChannel()}))
+			local _,to,from,_,_,mtype,np=event.pull(2,"modem_message")
+			if not to then
+				mnp.log("MNP","Tunnel timeout. This node is first?",1)
+			elseif to~=component.getPrimary("tunnel").address then
+				mnp.log("MNP","Check failure!",2)
+				return false
+			elseif mtype=="netconnect" then
+				if np then
+					np=ser.unserialize(np)
+					if netpacket.checkPacket(np) then
+						mnp.tunnelConnected=true
+						mnp.tunnelIP=np["route"][0]
+						mnp.tunnelUUID=from
+						mnp.log("MNP","Tunnel connected: "..mnp.tunnelIP)
+						return true
+					end
+				end
+				mnp.log("MNP","Tunnel packet error!",1)
+				return false
+			else
+				mnp.log("MNP","Unknown mtype from tunnel",1)
+				return false
+			end
+		end
+		return true
+	else
+		mnp.log("MNP","Tunnel not found.")
+		mnp.tunnelConnected=false
+		return false
+	end
+end
+    </div>
     <h1 style="font-size: 40px;">website://projects/MCNnet2</h1>
     <h2>contents://About</h2>
     MCNnet2 stands for "Minecraft Computer Node network, version 2.x".<br>
@@ -26,7 +117,7 @@
       <div>* WDP (Web Document Protocol) - simple webpage protocol for remote documents, no backend support</div>
       <div>* ASP (Advanced Site Protocol) - http-like protocol for webpages, with GET/POST requests etc. [WIP]</div>
     </div>
-    <a href="https://github.com/Exception0170/MCNnet_2.0" class="link-button">> GitHub</a>
+    <a href="https://github.com/Exception0170/MCNnet_2.0" class="link-button" style="background-color:#6488EA; border-color: #6488EA;">> GitHub</a>
     <br>  
     <a href="/projects/list.html" class="link-button">> back</a>
   </body>
