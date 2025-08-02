@@ -187,6 +187,29 @@ body::before {
   box-sizing: border-box;
 }
 
+.animated-nickname {
+  background-image: linear-gradient(to right, #FF0000, #ff8000);  /* Red to orange gradient */
+  -webkit-background-clip: text;  /* For WebKit browsers like Chrome */
+  background-clip: text;
+  color: transparent;  /* Makes the text transparent to show the gradient */
+  font-family: 'VT323', monospace;  /* Matches your retro theme */
+  display: inline-block;  /* Ensures it behaves like inline text */
+  animation: gradientAnimation 5s linear infinite;  /* Animates the gradient; adjust duration as needed */
+  white-space: nowrap;  /* Prevents wrapping for a clean effect */
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;  /* Start position */
+  }
+  50% {
+    background-position: 100% 50%;  /* Move the gradient */
+  }
+  100% {
+    background-position: 0% 50%;  /* Loop back */
+  }
+}
+
 @keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0; }
