@@ -10,7 +10,7 @@ body {
   font-family: 'VT323', monospace;
   padding: 10px;
   font-size: 25px;
-  line-height: 1;
+  line-height: 1.1;
   position: relative;
   overflow: auto;
   box-sizing: border-box;
@@ -41,7 +41,7 @@ body::before {
 }
 
 .window {
-  background-color: rgba(51, 25, 0, 0.8);
+  background-color: rgba(51, 25, 0, 0.6);
   color: #ff9c25;
   border: 2px solid #ff9c25;
   margin: 20px auto;
@@ -88,10 +88,28 @@ body::before {
   color: #ff9c25;
 }
 
-/* Updated class for note boxes with soft blue color */
+.blue-button {
+  display: inline-block;
+  background-color: #6488EA;
+  color: #331900;
+  text-decoration: none;
+  padding: 5px 10px;
+  font-size: 1.5em;
+  border: 2px solid #6488EA;
+  box-sizing: border-box;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.blue-button:hover {
+  background-color: #331900;
+  color: #6488EA;
+}
+
 .note {
-  background-color: #6488EA;  /* Soft blue background */
-  color: #331900;  /* Dark text for contrast */
+  background-color: #6488EA;
+  color: #331900;
   border: 1px solid #6488EA;
   padding: 1px;
   margin: 10px 0;
@@ -104,10 +122,9 @@ body::before {
   }
 }
 
-/* Updated class for warning boxes with reddish color */
 .warning {
-  background-color: #D0342C;  /* Reddish background for warnings */
-  color: #331900;  /* Dark text for contrast */
+  background-color: #D0342C;
+  color: #331900;
   border: 2px solid #D0342C;
   padding: 1px;
   margin: 10px 0;
@@ -117,33 +134,33 @@ body::before {
   font-weight: bold;
 }
 
-/* New class for outlined list entries div */
+
 .list-entries {
-  background-color: rgba(51, 25, 0, 0.5);  /* Retro-themed semi-transparent background */
-  border: 2px solid #ff9c25;  /* Outlined border for retro effect */
+  background-color: rgba(51, 25, 0, 0);
+  border: 2px solid #ff9c25;  
   padding: 10px;
   margin: 10px 0;
   box-sizing: border-box;
-  line-height: 1.1;  /* Single-line height, as per CSS best practices */
+  line-height: 1;
   font-size: 1em;
-  border-radius: 0;  /* Sharp edges for retro styling */
+  border-radius: 0;
 }
 
 .list-entries ul, .list-entries ol {
   margin: 0;
-  padding-left: 20px;  /* Indent for list items */
-  list-style-type: disc;  /* Default list style; can be customized */
+  padding-left: 20px; 
+  list-style-type: disc;
 }
 
 .list-entries li {
-  margin-bottom: 0;  /* Removes extra spacing for single-line height */
-  border: 2px solid #ff9c25;  /* Outlined border for retro effect */
+  margin-bottom: 0;
+  border: 2px solid #ff9c25;
 }
 .list-entries div{
-    margin-bottom: 0;  /* Removes extra spacing for single-line height */
-    padding: 5px;  /* Padding for better readability */
-    font-size: 1em;  /* Consistent font size */
-    border: 2px solid #ff9c25;  /* Outlined border for retro effect */
+    margin-bottom: 0;
+    padding: 5px;
+    font-size: 1em;
+    border: 2px solid #ff9c25;
 }
 
 .typed-cursor {
@@ -152,20 +169,20 @@ body::before {
 }
 
 .special-background {
-  position: absolute;  /* Positions it relative to the nearest positioned ancestor or body */
+  position: absolute;
   top: 0;
   left: 0;
-  width: 100%;  /* Full width to cover the page */
-  height: 100%;  /* Full viewport height */
-  background-color: #331900;  /* Dimmer amber color */
-  color: #4e300b;  /* Text color for visibility */
-  font-family: 'VT323', monospace;  /* Matches your theme */
+  width: 100%;
+  height: 100%;
+  background-color: #331900;
+  color: #4e300b;
+  font-family: 'VT323', monospace;
   font-size: 0.8em;
-  white-space: pre;  /* Preserves all spaces and line breaks for code-like text */
-  overflow: auto;  /* Allows scrolling if content is long */
-  z-index: -2;  /* Places it behind other elements, including global lines and windows */
-  opacity: 0.5;  /* Makes it semi-transparent so it doesn't overwhelm; adjust as needed */
-  padding: 0px;  /* Adds some space for the text inside */
+  white-space: pre;
+  overflow: auto;
+  z-index: -2;
+  opacity: 0.5;
+  padding: 0px;
   box-sizing: border-box;
 }
 
