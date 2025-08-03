@@ -279,3 +279,10 @@ h1, h2, p {
 .progress-bar progress::-webkit-progress-value {
   background-color: #FFBF00;
 }
+
+#volume-slider {
+  width: 150px;  /* Adjust width as needed */
+  background-color: #D79334;  /* Dimmer amber for the track */
+  accent-color: #FFBF00;  /* Amber for the slider thumb */
+  margin-right: 10px;
+}
