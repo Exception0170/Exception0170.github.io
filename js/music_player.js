@@ -147,5 +147,29 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 /* 
-
+    <div class="custom-player">
+      <div class="window" style="width: 80%;">
+        <div class="window-top-bar">music_player.exe<span class="fake-close">X</div>
+        <div class="window-content" style="background-color: #ffba25ba;color:#331900">
+          <span id="current-song">No song playing</span>
+          <audio id="audio-player"></audio>
+          <div class="controls">
+            <button id="prev-btn">Prev</button>
+            <button id="skip-backward-btn">-10s</button>
+            <button id="play-pause-btn">Play </button>
+            <button id="skip-forward-btn">+10s</button>
+            <button id="next-btn">Next</button>
+            <button id="loop-btn">[Loop:OFF]</button>
+            <button id="shuffle-btn">[Shuffle:OFF]</button> <br>
+            Volume:<input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+            <div class="progress-bar">
+              <progress id="progress" value="0" max="100"></progress>
+            </div>
+            <span id="current-time">0:00</span>
+            /
+            <span id="duration">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
 */
