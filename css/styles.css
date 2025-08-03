@@ -220,3 +220,62 @@ h1, h2, p {
   font-family: 'VT323', monospace;
   margin-bottom: 1em;
 }
+
+.play-button {
+  background-color: #D79334;
+  color: #331900;
+  border: 2px solid #FFBF00;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  font-family: 'VT323', monospace;
+  font-size: 20px;
+}
+
+.play-button:hover {
+  background-color: #FFBF00; 
+  color: #331900;
+}
+
+.custom-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #331900;
+  padding: 10px;
+  box-sizing: border-box;
+  z-index: 0;
+  color:#331900;
+}
+#current-song {
+  display: block;
+  font-family: 'VT323', monospace;
+  color:rgb(70, 5, 134);
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+.controls button {
+  background-color: #FFBF00;
+  color: #331900;
+  border: 1px solid #D79334;
+  padding: 5px 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  font-family: 'VT323', monospace;
+  font-size: 40px;
+}
+
+.progress-bar progress {
+  width: 100%;
+  height: 10px;
+  background-color: #331900;
+}
+
+.progress-bar progress::-webkit-progress-bar {
+  background-color: #331900;
+}
+
+.progress-bar progress::-webkit-progress-value {
+  background-color: #FFBF00;
+}

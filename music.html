@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>music://</title>
+    <base href="/">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="special-background">
+    </div>
+    <h1 style="font-size: 40px;">music://</h1>
+    <h1>My playlist</h1>
+    Kind of my playlist, musics i like and want saved :D<br>
+    Also trying out making a custom audio player.<br>
+    <div class="warning">⚠ These are not my songs! All rights go to their respective owners</div>
+    <div class="list-entries">
+      <div>
+        1. Welcome To The Future (Portal Stories: Mel OST) [By Harry101UK]
+        <button class="play-button" data-src="/music/welcome_to_the_future.mp3">⏵</button>
+      </div>
+      <div>
+        2. Live Fire Exercise (Portal Stories: Mel OST) [By Harry101UK]
+        <button class="play-button" data-src="/music/live_fire_exercise.mp3">⏵</button>
+      </div>
+    </div>
+    <div class="custom-player">
+      <div class="window" style="width: 80%;">
+        <div class="window-top-bar">music_player.exe<span class="fake-close">X</div>
+        <div class="window-content" style="background-color: #ffba25ba;color:#331900">
+          <span id="current-song">No song playing</span>
+          <audio id="audio-player"></audio>
+          <div class="controls">
+            <button id="prev-btn">⏮</button>
+            <button id="play-pause-btn">⏵</button>
+            <button id="next-btn">⏭</button>
+            <button id="loop-btn">[Loop OFF]</button>
+            <div class="progress-bar">
+              <progress id="progress" value="0" max="100"></progress>
+            </div>
+            <span id="current-time">0:00</span>
+            /
+            <span id="duration">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <a href="/index.html" class="link-button">> Home</a>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const audioPlayer = document.getElementById('audio-player');
+  const playPauseBtn = document.getElementById('play-pause-btn');
+  const progressBar = document.getElementById('progress');
+  const currentTimeEl = document.getElementById('current-time');
+  const durationEl = document.getElementById('duration');
+  const playButtons = document.querySelectorAll('.play-button');
+  const currentSongEl = document.getElementById('current-song');
+  const nextBtn = document.getElementById('next-btn');
+  const prevBtn = document.getElementById('prev-btn');
+  const loopBtn = document.getElementById('loop-btn');
+
+  let playlist = Array.from(playButtons).map(button => button.getAttribute('data-src'));  // Create playlist array
+  let currentIndex = 0;  // Track current song
+
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % playlist.length;  // Move to next, loop to start if at end
+    playSong();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;  // Move to previous, loop to end if at start
+    playSong();
+  });
+  loopBtn.addEventListener('click', () => {
+    audioPlayer.loop = !audioPlayer.loop;  // Toggle loop attribute
+    loopBtn.textContent = audioPlayer.loop ? '[Loop ON]' : '[Loop OFF]';
+    loopBtn.classList.toggle('active', audioPlayer.loop);  // Add/remove active class for styling
+  });
+
+  playButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const src = button.getAttribute('data-src');
+      audioPlayer.src = src;
+      audioPlayer.play();
+      playPauseBtn.textContent = '⏸';
+      const songName = src.split('/').pop();
+      currentSongEl.textContent = `Now playing: ${songName}`;
+    });
+  });
+
+  playPauseBtn.addEventListener('click', () => {
+    if (audioPlayer.paused) {
+      audioPlayer.play();
+      playPauseBtn.textContent = '⏸';
+    } else {
+      audioPlayer.pause();
+      playPauseBtn.textContent = '⏵';
+    }
+  });
+
+  audioPlayer.addEventListener('timeupdate', () => {
+    const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+    progressBar.value = progress;
+    currentTimeEl.textContent = formatTime(audioPlayer.currentTime);
+    durationEl.textContent = formatTime(audioPlayer.duration);
+  });
+
+  audioPlayer.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = formatTime(audioPlayer.duration);
+  });
+
+  audioPlayer.addEventListener('ended', () => {
+    if (!audioPlayer.loop) {
+      nextBtn.click();  // Go to next if not looping
+    } else {
+      audioPlayer.currentTime = 0;  // Reset to start if looping
+      playSong();
+    }
+  }); 
+
+  function playSong() {
+    audioPlayer.src = playlist[currentIndex];
+    audioPlayer.play();
+    playPauseBtn.textContent = '⏸';
+    const songName = playlist[currentIndex].split('/').pop();  // Extract song name
+    currentSongEl.textContent = `Now playing: ${songName}`;
+  }
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+});
+      </script>
+  </body>
+</html>
