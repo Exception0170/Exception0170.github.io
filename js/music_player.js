@@ -29,6 +29,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.addEventListener('keydown', (event) => {
+    if (event.code === 'Space') {
+        if (audioPlayer.paused) {
+          audioPlayer.play();
+          playPauseBtn.textContent = 'Pause';
+        } else {
+          audioPlayer.pause();
+          playPauseBtn.textContent = 'Play ';
+        }
+        event.preventDefault();  // Prevent default behavior like scrolling
+    } else if (event.code === 'ArrowLeft') {
+      audioPlayer.currentTime = Math.max(0, audioPlayer.currentTime - 5);  // Skip backward 5 seconds
+    } else if (event.code === 'ArrowRight') {
+      audioPlayer.currentTime = Math.min(audioPlayer.duration, audioPlayer.currentTime + 5);  // Skip forward 5 seconds
+    }
+});
+
   volumeSlider.addEventListener('input', () => {
     audioPlayer.volume = volumeSlider.value;  // Update volume based on slider
   });
