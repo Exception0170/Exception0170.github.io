@@ -3,13 +3,25 @@ html, body {
   margin: 0;
   padding: 0;
 }
+a{
+  color:#6488EA;
+}
+
+@font-face {
+  font-family: 'TDAtext';
+  src: url('../fonts/TDAtext.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Fixedsys';
+  src: url('../fonts/Fixedsys.ttf') format('truetype');
+}
 
 body {
   background-color: #331900;
   color: #ff9c25;
-  font-family: 'VT323', monospace;
+  font-family: 'TDAtext', monospace;
   padding: 10px;
-  font-size: 25px;
+  font-size: 20px;
   line-height: 1.1;
   position: relative;
   overflow: auto;
@@ -70,22 +82,25 @@ body::before {
 }
 
 .link-button {
+  font-family: TDAtext;
   display: inline-block;
-  background-color: #ff9c25;
+  background-color: var(--button-bg, #ff9c25);
   color: #331900;
   text-decoration: none;
   padding: 5px 10px;
-  font-size: 1.5em;
-  border: 2px solid #ff9c25;
+  font-size: 1em;
+  border: 2px solid var(--button-bg, #ff9c25);
   box-sizing: border-box;
   margin: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 0 0 5px var(--button-bg, #ff9c25);
+  text-shadow: 0 0 2px var(--button-bg, #ff9c25);
 }
 
 .link-button:hover {
   background-color: #331900;
-  color: #ff9c25;
+  color: var(--button-bg, #ff9c25);
 }
 
 .blue-button {
@@ -94,7 +109,7 @@ body::before {
   color: #331900;
   text-decoration: none;
   padding: 5px 10px;
-  font-size: 1.5em;
+  font-size: 1em;
   border: 2px solid #6488EA;
   box-sizing: border-box;
   margin: 10px;
@@ -116,10 +131,8 @@ body::before {
   box-sizing: border-box;
   font-size: 1em;
   border-radius: 0;
-  .note h3 {
-    margin:0 !important;
-    padding:0 !important;
-  }
+  font-weight: bold;
+  display: inline-block;
 }
 
 .warning {
@@ -138,7 +151,7 @@ body::before {
 
 .list-entries {
   background-color: rgba(51, 25, 0, 0);
-  border: 2px solid #ff9c25;  
+  border: 2px solid #ff9c25;
   padding: 10px;
   margin: 10px 0;
   box-sizing: border-box;
@@ -149,7 +162,7 @@ body::before {
 
 .list-entries ul, .list-entries ol {
   margin: 0;
-  padding-left: 20px; 
+  padding-left: 20px;
   list-style-type: disc;
 }
 
@@ -188,14 +201,14 @@ body::before {
 }
 
 .animated-nickname {
-  background-image: linear-gradient(to right, #FF0000, #ff8000);  /* Red to orange gradient */
+  background-image: linear-gradient(to right, #FF0000, #FFFF00);
   -webkit-background-clip: text;  /* For WebKit browsers like Chrome */
   background-clip: text;
   color: transparent;  /* Makes the text transparent to show the gradient */
   font-family: 'VT323', monospace;  /* Matches your retro theme */
-  display: inline-block;  /* Ensures it behaves like inline text */
+  word-wrap: break-word;
   animation: gradientAnimation 5s linear infinite;  /* Animates the gradient; adjust duration as needed */
-  white-space: nowrap;  /* Prevents wrapping for a clean effect */
+  font-size: 1.5em;
 }
 
 @keyframes gradientAnimation {
@@ -216,7 +229,7 @@ body::before {
   100% { opacity: 1; }
 }
 
-h1, h2, p {
+h1 {
   font-family: 'VT323', monospace;
   margin-bottom: 1em;
 }
@@ -233,7 +246,7 @@ h1, h2, p {
 }
 
 .play-button:hover {
-  background-color: #FFBF00; 
+  background-color: #FFBF00;
   color: #331900;
 }
 
@@ -285,4 +298,447 @@ h1, h2, p {
   background-color: #D79334;  /* Dimmer amber for the track */
   accent-color: #FFBF00;  /* Amber for the slider thumb */
   margin-right: 10px;
+}
+
+.contact-name{
+  font-size: 1.2em;
+  color: yellow;
+}
+/* textglow */
+body, a, h1, h2, h3, h4, h5, h6, .contact-name{
+  text-shadow: 0 0 2px currentColor;
+}
+
+.window, .note, .warning, .blue-button, .list-entries li, .list-entries div {
+  box-shadow: 0 0 5px currentColor;
+}
+.window {
+  box-shadow: 0 0 5px currentColor;
+}
+
+.window-top-bar {
+  box-shadow: 0 0 5px #ff9c25;
+  text-shadow: 0 0 2px #ff9c25;
+}
+
+.blue-button {
+  box-shadow: 0 0 5px #6488EA;
+  text-shadow: 0 0 2px #6488EA;
+}
+
+.note {
+  box-shadow: 0 0 5px #6488EA;
+  text-shadow: 0 0 2px #6488EA;
+}
+
+.warning {
+  box-shadow: 0 0 5px #D0342C;
+  text-shadow: 0 0 2px #D0342C;
+}
+
+.contact-name {
+  text-shadow: 0 0 3px yellow;
+}
+.account-topbar {
+  position: sticky;
+  top: 0;
+  font-size: clamp(0.75rem, 4vw, 1.5rem);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  z-index: 5;
+  backdrop-filter: blur(5px);
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.b-window-top-bar{
+  background-color: #6488ea;
+  color: #331900;
+  padding: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+.b-window-top-bar {
+  box-shadow: 0 0 5px #6488ea;
+  text-shadow: 0 0 2px #6488ea;
+}
+
+.account-topbar .home-button {
+  flex-shrink: 1;
+  min-width: min-content;
+  white-space: nowrap;
+  margin-right: 0;
+}
+
+.account-topbar .page-title {
+  font-weight: bold;
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  text-align: left; /* Changed from center to left */
+  font-size: 3rem; /* Regular h1 size */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 15px;
+}
+
+.account-topbar .account-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* More space for controls */
+  flex-shrink: 1;
+  min-width: min-content;
+  white-space: nowrap;
+}
+
+.account-topbar .account-controls .link-button {
+  margin: 0;
+  padding: 5px 10px;
+  font-size: 1em;
+  flex-shrink: 1;
+  min-width: min-content;
+}
+
+.account-topbar .account-username {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px; /* More space for nickname */
+  flex-shrink: 0;
+  font-size: 1.1em;
+  margin-right: 10px;
+}
+
+/* Make link-buttons fit properly */
+.account-topbar .link-button {
+  margin: 0;
+  padding: 5px 10px;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .account-topbar {
+    padding: 0 10px;
+    gap: 10px;
+    height: 55px;
+  }
+
+  .account-topbar .page-title {
+    font-size: 2rem; /* Still good h1 size on tablet */
+    padding: 0 10px;
+  }
+
+  .account-topbar .account-controls {
+    gap: 8px;
+  }
+
+  .account-topbar .account-username {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .account-topbar .page-title {
+    font-size: 2rem; /* Slightly smaller but still prominent */
+  }
+
+  .account-topbar .account-username {
+    display: none;
+  }
+
+  .account-topbar .link-button {
+    padding: 4px 8px;
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-topbar .account-username {
+    display: none;
+  }
+
+  .account-topbar .page-title {
+    font-size: 1.1rem;
+    padding: 0 5px;
+  }
+}
+
+/* Form Input Styles for CRT Theme */
+input, textarea, select {
+  background-color: #331900;
+  color: #ff9c25;
+  border: 2px solid #ff9c25;
+  font-family: 'TDAtext', monospace;
+  font-size: 1em;
+  padding: 8px 10px;
+  margin: 5px 0;
+  box-sizing: border-box;
+  outline: none;
+  text-shadow: 0 0 2px currentColor;
+  box-shadow: 0 0 5px #ff9c25;
+  transition: all 0.3s ease;
+}
+
+/* Input focus state */
+input:focus, textarea:focus, select:focus {
+  border-color: #6488EA;
+  box-shadow: 0 0 8px #6488EA;
+  background-color: #4e300b;
+}
+
+/* Placeholder text styling */
+input::placeholder, textarea::placeholder {
+  color: #ff9c25;
+  opacity: 0.7;
+  text-shadow: 0 0 2px #ff9c25;
+}
+
+/* Text input specific */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Textarea specific */
+textarea {
+  width: 100%;
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Select dropdown */
+select {
+  width: 100%;
+  max-width: 400px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff9c25' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 30px;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #331900;
+  border: 2px solid #ff9c25;
+  position: relative;
+  cursor: pointer;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #ff9c25;
+}
+
+input[type="checkbox"]:checked::after {
+  content: "✓";
+  position: absolute;
+  color: #331900;
+  font-size: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-shadow: none;
+}
+
+input[type="checkbox"]:hover {
+  border-color: #6488EA;
+  box-shadow: 0 0 5px #6488EA;
+}
+
+/* Radio button styling */
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background-color: #331900;
+  border: 2px solid #ff9c25;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+input[type="radio"]:checked {
+  background-color: #ff9c25;
+}
+
+input[type="radio"]:checked::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #331900;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="radio"]:hover {
+  border-color: #6488EA;
+  box-shadow: 0 0 5px #6488EA;
+}
+
+/* File input styling */
+input[type="file"] {
+  width: 100%;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+  background-color: #ff9c25;
+  color: #331900;
+  border: 2px solid #ff9c25;
+  padding: 6px 12px;
+  margin-right: 10px;
+  font-family: 'TDAtext', monospace;
+  cursor: pointer;
+  text-shadow: none;
+  box-shadow: 0 0 5px #ff9c25;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: #331900;
+  color: #ff9c25;
+}
+
+/* Form group styling for better layout */
+.form-group {
+  margin: 15px 0;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #ff9c25;
+  text-shadow: 0 0 2px currentColor;
+}
+
+.form-group .form-help {
+  font-size: 0.9em;
+  color: #ff9c25;
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+/* Disabled input state */
+input:disabled, textarea:disabled, select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: #8B4513;
+}
+
+input:disabled::placeholder {
+  color: #8B4513;
+}
+
+/* Error state for form validation */
+input.error, textarea.error, select.error {
+  border-color: #D0342C;
+  box-shadow: 0 0 5px #D0342C;
+  background-color: #4e1a17;
+}
+
+.error-message {
+  color: #D0342C;
+  font-size: 0.9em;
+  margin-top: 5px;
+  text-shadow: 0 0 2px #D0342C;
+}
+
+/* Success state */
+input.success, textarea.success, select.success {
+  border-color: #6488EA;
+  box-shadow: 0 0 5px #6488EA;
+}
+
+/* Fieldset and legend styling */
+fieldset {
+  border: 2px solid #ff9c25;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: rgba(51, 25, 0, 0.3);
+}
+
+legend {
+  color: #ff9c25;
+  padding: 0 10px;
+  font-weight: bold;
+  text-shadow: 0 0 2px currentColor;
+}
+
+/* Range input styling */
+input[type="range"] {
+  width: 100%;
+  height: 8px;
+  background: #331900;
+  border: 2px solid #ff9c25;
+  border-radius: 0;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #ff9c25;
+  cursor: pointer;
+  box-shadow: 0 0 5px #ff9c25;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #ff9c25;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 5px #ff9c25;
+}
+
+/* Search input specific */
+input[type="search"] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23ff9c25' d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 35px;
+}
+
+.typing-animation {
+  overflow: hidden;
+  border-right: 2px solid currentColor;
+  white-space: nowrap;
+  animation: typing 2s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: currentColor }
 }

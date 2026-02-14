@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>projects://MCNnet2</title>
+    <base href="/">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class="special-background">
+---MCNnet3 NetworkPacket
+local ipv3=require("ipv3")
+local ser=require("serialization")
+local np={}
+np.ver="3.0"
+function np.encodeNum(n)
+  if n==0 then return "\0" end
+  local t={}
+  while n>0 do
+    t[#t+1]=string.char(n%256)
+    n=math.floor(n/256)
+  end
+  for i=1,#t//2 do
+    t[i],t[#t-i+1]=t[#t-i+1],t[i]
+  end
+  return table.concat(t)
+end
+function np.decodeNum(str)
+  local n=0
+  for i=1,#str do
+    n=n*256+str:byte(i)
+  end
+  return n
+end
+function np.parseFlags(b)
+  return {
+    broadcast  = (b & 0x01) ~= 0,
+    control    = (b & 0x02) ~= 0,
+    fragment   = (b & 0x04) ~= 0,
+    serialized = (b & 0x08) ~= 0,
+  }
+end
+function np.buildFlags(t)
+  local b = 0
+  if t.broadcast  then b = b | 0x01 end
+  if t.control    then b = b | 0x02 end
+  if t.fragment   then b = b | 0x04 end
+  if t.serialized then b = b | 0x08 end
+  return b
+end
+function np.newPacket(src_ip,dest_ip,port,flags,payload)
+  local src_ip=ipv3.expand(src_ip)
+  local dest_ip=ipv3.expand(dest_ip)
+  if not src_ip or not dest_ip or type(port)~="number" then return nil end
+  if port<0 or port>0xffff then return nil end
+  if type(flags)~="table" then return nil end
+  if not payload then return nil end
+  return {src=src_ip,dst=dest_ip,port=port,flags=flags,payload=payload}
+end
+    </div>
+    <h1 style="font-size: 40px;">projects://MCNnet3</h1>
+    <h2>contents://About</h2>
+    WIP!<br>
+    MCNnet3 stands for "Minecraft Computer Node network, version 3".<br>
+    Major difference from MCNnet2. Packets now are truly encoded into bytes.<br>
+    Addressing system: IPv3 now instead of IPv2. Also now there are virtual ports in range 0-65536.<br>
+    New addressed look like this: <b>[1234:5678:90ab]:80</b><br>
+    Moreover, MCNnet3 reworks routing completely. No more routes stored at client. Node network does all the job.<br>
+    Protocols are reworked too, now following network layers. No more monolithic MNP protocol.<br>
+    Like MCNnet2, system provides availability to create custom networking protocols, too
+    <h2>contents://Protocols</h2>
+    <div class="list-entries">
+        <div>* NDP (Node Discovery Protocol) - low-level protocol allows node to connect to each other.</div>
+        <div>* MTLP (MCNnet3 Transport Layer Protocol) - basic transmission</div>
+        <div>* RDP(Route Discovery Protocol) - discovery of routes to client</div>
+        <div>* CAP (Client Attachment Protocol) - clients connecting to nodes</div>
+    </div>
+    <a href="https://github.com/Exception0170/MCNnet3" class="blue-button">> GitHub</a>
+    <br>  
+    <a href="/projects/list.html" class="link-button">> back</a>
+  </body>
+</html>
